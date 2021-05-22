@@ -1,0 +1,10 @@
+<h2 class="mb-2">Your Answer</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <textarea
+    formControlName="body"
+    class="textarea"
+    placeholder="Post an answer"
+    rows="10"
+  ></textarea>
+  <button type="submit" class="button is-link mt-2" (click)="submit()">Submit</button>
+</form>

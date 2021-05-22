@@ -1,0 +1,11 @@
+<div class="is-flex is-flex-direction-column is-align-content-center">
+  <span class="icon is-clickable" (click)="doUpvote()">
+    <i class="fa fa-caret-up fa-4x" aria-hidden="true" [ngClass]="{ 'has-text-info': voteType === 'upvote' }" ></i>
+  </span>
+  <div class="is-size-4 mt-2 mb-2 has-text-centered">
+    {{ votesCount }}
+  </div>
+  <span class="icon is-clickable" (click)="doDownvote()">
+    <i class="fa fa-caret-down fa-4x" aria-hidden="true" [ngClass]="{ 'has-text-info': voteType === 'downvote' }"></i>
+  </span>
+</div>

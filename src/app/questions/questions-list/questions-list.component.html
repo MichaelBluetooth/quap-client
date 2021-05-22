@@ -1,0 +1,55 @@
+<div class="mt-4" *ngFor="let question of questions$ | async">
+  <div class="card mt-4">
+    <div
+      class="
+        card-content
+        is-flex
+        is-flex-direction-row
+        is-justify-content-space-between
+        is-align-items-center
+      "
+    >
+      <div>
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">
+              <a [routerLink]="['questions', question.id]">
+                {{ question.title }}
+              </a>
+            </p>
+            <p class="subtitle is-6">
+              <span>Asked {{ question.created | timeAgo }} by </span>
+              <a href="#">{{ question.createdByUsername }}</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="tags">
+            <span *ngFor="let tag of question.tags" class="tag is-primary">{{
+              tag
+            }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="is-flex is-justify-content-center">
+        <div
+          [ngClass]="{'has-background-success-light': question.answersCount > 0 && !question.hasAcceptedAnswer, 'has-background-success': question.hasAcceptedAnswer}"
+          style="width: 120px"
+          class="mr-5 box is-flex is-flex-direction-column has-text-centered"
+        >
+          <div class="is-size-4">{{question.answersCount}}</div>
+          <span>Answers</span>
+        </div>
+        <div
+          style="width: 120px"
+          class="box is-flex is-flex-direction-column has-text-centered"
+        >
+          <div class="is-size-4">{{question.votesCount}}</div>
+          <span>Votes</span>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>

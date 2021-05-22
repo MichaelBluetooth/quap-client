@@ -1,0 +1,94 @@
+<section class="section" *ngIf="question$ | async as question">
+  <h1 class="title">{{ question.title }}</h1>
+  <h2 class="subtitle">
+    <span>Asked {{ question.created | timeAgo }} by </span>
+    <a href="#">{{ question.createdByUsername }}</a>
+  </h2>
+  <hr class="has-background-dark" />
+  <div class="columns mb-4">
+    <div class="is-1 mr-5">
+      <app-vote-ticker
+        (upvote)="upvoteQuestion()"
+        (downvote)="downvoteQuestion()"
+        (removevote)="removevoteQuestion()"
+        [voteType]="question.userVoteType"
+        [votesCount]="question.votesCount"
+      ></app-vote-ticker>
+    </div>
+    <div>
+      <p>
+        <markdown [data]="question.body"></markdown>
+      </p>
+      <div class="tags mt-2">
+        <span *ngFor="let tag of question.tags" class="tag is-primary">{{
+          tag
+        }}</span>
+      </div>
+      <hr />
+      <app-comments
+        [comments]="question.comments"
+        [createdByUsername]="question.createdByUsername"
+        (commentAdded)="questionComment($event)"
+      ></app-comments>
+    </div>
+  </div>
+
+  <span class="is-size-5 mt-5">{{ question.answers.length }} Answers</span>
+  <hr class="has-background-dark" />
+
+  <ng-container *ngFor="let answer of question.answers">
+    <div class="columns mb-4">
+      <div class="is-1 mr-5">
+        <div class="is-flex is-flex-direction-column is-align-content-center">
+          <app-vote-ticker
+            (upvote)="upvoteAnswer(answer.id)"
+            (downvote)="downvoteAnswer(answer.id)"
+            (removevote)="removevoteAnswer(answer.id)"
+            [voteType]="answer.userVoteType"
+            [votesCount]="answer.votesCount"
+          ></app-vote-ticker>
+          <div class="mt-5">
+            <span
+              (click)="accept(answer)"
+              class="icon"
+              [ngClass]="{ 'has-text-success': answer.accepted }"
+            >
+              <i class="fa fa-check fa-3x is-clickable accept-mark" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="ml-3">
+        <div>
+          <markdown [data]="answer.body"></markdown>
+        </div>
+        <hr class="mb-2" />
+        <div
+          class="is-flex is-justify-content-space-between is-align-items-center"
+        >
+          <div>
+            Answered by
+            <a [routerLink]="['users', answer.createdByUsername]">{{
+              answer.createdByUsername
+            }}</a>
+            {{ answer.created | timeAgo }}
+          </div>
+          <div>
+            <button class="button is-text mr-3">Share</button>
+            <button class="button is-text mr-3">Edit</button>
+            <button class="button is-text">Delete</button>
+          </div>
+        </div>
+        <hr class="mt-2" />
+        <app-comments
+          [comments]="answer.comments"
+          [createdByUsername]="answer.createdByUsername"
+          (commentAdded)="answerComment(answer.id, $event)"
+        ></app-comments>
+      </div>
+    </div>
+    <hr class="has-background-dark" />
+  </ng-container>
+
+  <app-create-answer (answered)="answerQuestion($event)"></app-create-answer>
+</section>

@@ -1,0 +1,31 @@
+<div class="is-size-6">Comments ({{ comments.length }})</div>
+<hr class="mt-1 mb-1" />
+<div class="is-size-7" *ngFor="let comment of comments">
+  {{ comment.comment }} -
+  <a [routerLink]="['users', createdByUsername]">{{ createdByUsername }}</a>
+  on <span class="has-text-grey">{{ comment.created | date: "short" }}</span>
+  <hr class="mt-1 mb-1" />
+</div>
+<button *ngIf="!isAddMode" class="button is-text is-small" (click)="toggle()">
+  Add Comment
+</button>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <textarea
+    formControlName="comment"
+    *ngIf="isAddMode"
+    rows="2"
+    class="textarea is-small"
+    placeholder="Add a comment..."
+  ></textarea>
+  <button
+    type="submit"
+    *ngIf="isAddMode"
+    class="button is-text is-small mr-2"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+  <button *ngIf="isAddMode" class="button is-text is-small" (click)="toggle()">
+    Cancel
+  </button>
+</form>
