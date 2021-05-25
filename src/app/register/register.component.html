@@ -1,0 +1,61 @@
+<section class="hero has-background-light is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-black">Quap Register</h3>
+        <hr class="login-hr has-background-dark" />
+        <p class="subtitle has-text-black">Please register to proceed.</p>
+        <div class="box">
+          <form [formGroup]="form" (ngSubmit)="register()">
+            <div class="field">
+              <div class="control">
+                <input autocomplete="off" formControlName="username" class="input is-normal" type="text"
+                  placeholder="Your Username" autofocus="" />
+              </div>
+              <p class="help is-danger is-pulled-left" *ngIf="form.dirty && form.controls.username.invalid">Username is
+                required.</p>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input autocomplete="off" formControlName="email" class="input is-normal" type="email"
+                  placeholder="Your Email" autofocus="" />
+              </div>
+              <p class="help is-danger is-pulled-left" *ngIf="form.dirty && form.controls.email.invalid">Please enter a
+                valid email.
+              </p>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input autocomplete="off" formControlName="password" class="input is-normal" type="password"
+                  placeholder="Your Password" />
+              </div>
+              <p class="help is-danger is-pulled-left" *ngIf="form.dirty && form.controls.password.invalid">Password is
+                required.</p>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input autocomplete="off" formControlName="passwordConfirm" class="input is-normal" type="password"
+                  placeholder="Confirm Password" />
+              </div>
+              <p class="help is-danger is-pulled-left" *ngIf="form.dirty && form.controls.password.invalid">Please
+                confirm your
+                password</p>
+              <p class="help is-danger is-pulled-left" *ngIf="form.dirty && form.hasError('notSame')">Passwords do not
+                match</p>
+            </div>
+
+            <button class="button is-block is-info is-normal is-fullwidth" type="submit">
+              Register <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+        <p class="has-text-grey">
+          Already a member? <a [routerLink]="['/login']">Log In</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

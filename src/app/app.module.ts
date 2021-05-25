@@ -9,11 +9,14 @@ import { MarkdownModule } from "ngx-markdown";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthInterceptorService } from "./services/auth-interceptor/auth-interceptor.service";
 import { BaseUrlService } from "./services/base-url/base-url.service";
+import { RegisterComponent } from './register/register.component';
+import { AlertComponent } from './alert/alert.component';
+import { ConfirmComponent } from "./questions/confirm/confirm.component";
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ConfirmComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
+    BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

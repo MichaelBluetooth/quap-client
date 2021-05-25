@@ -1,16 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { QuestionDetail } from 'src/app/models/question-detail';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { BehaviorSubject, Subject } from "rxjs";
+import { QuestionDetail } from "src/app/models/question-detail";
+import { ConfirmService } from "../confirm/confirm.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CurrentQuestion {
   private _question: BehaviorSubject<QuestionDetail> =
     new BehaviorSubject<QuestionDetail>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private confirmController: ConfirmService
+  ) {}
 
   public get question$() {
     return this._question.asObservable();
@@ -22,7 +28,7 @@ export class CurrentQuestion {
 
   commentQuestion(comment: string): void {
     this.http
-      .post('questions/comment', {
+      .post("questions/comment", {
         postId: this._question.value.id,
         comment: comment,
       })
@@ -35,7 +41,7 @@ export class CurrentQuestion {
 
   commentAnswer(answerId: string, comment: string): void {
     this.http
-      .post('answers/comment', {
+      .post("answers/comment", {
         postId: answerId,
         comment: comment,
       })
@@ -50,33 +56,45 @@ export class CurrentQuestion {
       });
   }
 
+  delete() {
+    this.confirmController.createAlert().subscribe((didConfirm) => {
+      if (didConfirm) {
+        this.http
+          .delete(`questions/${this._question.value.id}`)
+          .subscribe(() => {
+            this.router.navigate(["questions"]);
+          });
+      }
+    });
+  }
+
   upvoteQuestion() {
-    this.vote('upvote');
+    this.vote("upvote");
   }
 
   downvoteQuestion() {
-    this.vote('downvote');
+    this.vote("downvote");
   }
 
   removevoteQuestion() {
-    this.vote('none');
+    this.vote("none");
   }
 
   upvoteAnswer(answerId: string) {
-    this.voteAnswer(answerId, 'upvote');
+    this.voteAnswer(answerId, "upvote");
   }
 
   downvoteAnswer(answerId: string) {
-    this.voteAnswer(answerId, 'downvote');
+    this.voteAnswer(answerId, "downvote");
   }
 
   removevoteAnswer(answerId: string) {
-    this.voteAnswer(answerId, 'none');
+    this.voteAnswer(answerId, "none");
   }
 
   vote(voteType: string) {
     this.http
-      .post('questions/vote', {
+      .post("questions/vote", {
         voteType: voteType,
         postId: this._question.value.id,
       })
@@ -87,7 +105,7 @@ export class CurrentQuestion {
 
   voteAnswer(answerId: string, voteType: string) {
     this.http
-      .post('answers/vote', {
+      .post("answers/vote", {
         voteType: voteType,
         postId: answerId,
       })
@@ -101,7 +119,7 @@ export class CurrentQuestion {
 
   answerQuestion(body: string) {
     this.http
-      .post('answers', {
+      .post("answers", {
         questionId: this._question.value.id,
         body: body,
       })
@@ -114,7 +132,7 @@ export class CurrentQuestion {
 
   acceptAnswer(answerId: string, accept: boolean) {
     this.http
-      .post('answers/' + (accept ? 'accept' : 'unaccept'), { answerId })
+      .post("answers/" + (accept ? "accept" : "unaccept"), { answerId })
       .subscribe((resp: any) => {
         const q = this._question.value;
         const idx = q.answers.findIndex((a) => a.id === resp.id);

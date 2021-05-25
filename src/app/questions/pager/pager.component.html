@@ -1,0 +1,13 @@
+<nav class="pagination" role="navigation">
+  <a class="pagination-previous" *ngIf="results.hasPrevious" [routerLink]="['/questions']"
+    [queryParams]="{pageNumber: (results.pageNumber - 1)}" queryParamsHandling="merge">Previous</a>
+  <a class="pagination-next" *ngIf="results.hasNext" [routerLink]="[]"
+    [queryParams]="{pageNumber: (results.pageNumber + 1)}" queryParamsHandling="merge">Next page</a>
+  <ul class="pagination-list">
+    <li *ngFor="let page of results.totalPages | fill">
+      <a class="pagination-link" [ngClass]="{'has-background-info': (page+1) === results.pageNumber}"
+        [routerLink]="['/questions']" [queryParams]="{pageNumber: (page+1)}"
+        queryParamsHandling="merge">{{page + 1}}</a>
+    </li>
+  </ul>
+</nav>

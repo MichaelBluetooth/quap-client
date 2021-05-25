@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Input,
   OnInit,
   Optional,
   ViewChild,
@@ -15,6 +16,8 @@ import { ControlValueAccessor, NgControl } from "@angular/forms";
 })
 export class TagsInputComponent implements OnInit, ControlValueAccessor {
   @ViewChild("tagsInput", { static: true }) tagsInput: ElementRef;
+
+  @Input() placeholder: string = "";
 
   isFocus = false;
   currentTag: string = "";
@@ -78,5 +81,11 @@ export class TagsInputComponent implements OnInit, ControlValueAccessor {
       event.preventDefault();
       this.tagsInput.nativeElement.focus();
     }
+  }
+
+  @HostListener("click")
+  onClick() {
+    this.focusMe();
+    this.tagsInput.nativeElement.focus();
   }
 }

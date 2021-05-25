@@ -41,6 +41,17 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
+        <form [formGroup]="form" class="field" (ngSubmit)="search()">
+          <p class="control has-icons-left">
+            <input formControlName="search" class="input" placeholder="Search">
+            <span class="icon is-small is-left">
+              <i class="fa fa-search"></i>
+            </span>
+          </p>
+        </form>
+      </div>
+
+      <div class="navbar-item">
         <div class="buttons">
           <a class="button is-primary" [routerLink]="['ask']">
             <strong>Ask Question</strong>

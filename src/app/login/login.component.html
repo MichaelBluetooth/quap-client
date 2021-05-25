@@ -1,9 +1,9 @@
-<section class="hero is-fullheight">
+<section class="hero has-background-light is-fullheight">
   <div class="hero-body">
     <div class="container has-text-centered">
       <div class="column is-4 is-offset-4">
         <h3 class="title has-text-black">Quap Login</h3>
-        <hr class="login-hr" />
+        <hr class="login-hr has-background-dark" />
         <p class="subtitle has-text-black">Please login to proceed.</p>
         <div class="box">
           <form [formGroup]="form" (ngSubmit)="login()">
@@ -35,7 +35,7 @@
           </form>
         </div>
         <p class="has-text-grey">
-          <a href="../">Sign Up</a>
+          <a [routerLink]="['/register']">Sign Up</a>
           <!-- &nbsp;·&nbsp;
           <a href="../">Forgot Password</a>
            &nbsp;·&nbsp;

@@ -15,6 +15,9 @@ import { VoteTickerComponent } from './vote-ticker/vote-ticker.component';
 import { CreateAnswerComponent } from './create-answer/create-answer.component';
 import { AskQuestionComponent } from './ask-question/ask-question.component';
 import { TagsInputComponent } from './tags-input/tags-input.component';
+import { PagerComponent } from './pager/pager.component';
+import { FillPipe } from './pipes/fill.pipe';
+import { PagesPipe } from './pipes/pages.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { TagsInputComponent } from './tags-input/tags-input.component';
     CreateAnswerComponent,
     AskQuestionComponent,
     TagsInputComponent,
+    PagerComponent,
+    FillPipe,
+    PagesPipe,
   ],
   imports: [
     MarkdownModule.forRoot(),

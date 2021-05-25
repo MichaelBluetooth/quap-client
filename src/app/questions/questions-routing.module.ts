@@ -15,8 +15,9 @@ const routes: Routes = [
       {
         path: '',
         component: QuestionsListComponent,
+        runGuardsAndResolvers: 'always',
         resolve: {
-          questions: QuestionsResolverService,
+          results: QuestionsResolverService,
         },
       },
       {

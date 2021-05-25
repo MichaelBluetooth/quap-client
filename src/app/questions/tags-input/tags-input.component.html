@@ -1,9 +1,11 @@
-<div class="input pt-4 pb-2" [ngClass]="{'is-active': isFocus}">
+<div class="wrapper input pt-4 pb-2" [ngClass]="{'is-active': isFocus}">
   <div class="is-flex is-flex-direction-row is-align-items-center">
     <div class="tags has-addons m-0 mr-2" *ngFor="let tag of tags; let idx = index">
       <span class="tag is-primary">{{tag}}</span>
       <a class="tag is-delete" (click)="removeTag(idx)"></a>
     </div>
+
+    <span class="placeholder mb-2 has-text-grey-light" *ngIf="!currentTag && tags.length == 0 && placeholder">{{placeholder}}</span>
 
     <input #tagsInput [(ngModel)]="currentTag" class="mb-2" (focus)="focusMe()" (blur)="blurMe()" (keydown.enter)="checkAddTag($event)" />
   </div>

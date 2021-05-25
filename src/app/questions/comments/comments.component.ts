@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,8 @@ export class CommentsComponent implements OnInit {
   @Input() createdByUsername: string = '';
 
   @Output() commentAdded: EventEmitter<string> = new EventEmitter<string>();
+
+  @ViewChild("commentsInput", { static: false }) commentsInput: ElementRef;
 
   isAddMode: boolean = false;
   form: FormGroup = new FormGroup({
@@ -26,6 +28,12 @@ export class CommentsComponent implements OnInit {
     this.form = new FormGroup({
       comment: new FormControl('', Validators.required),
     });
+
+    if(this.isAddMode){
+      setTimeout(() => {
+        this.commentsInput.nativeElement.focus();  
+      }, 5);
+    }
   }
 
   submit(): void {

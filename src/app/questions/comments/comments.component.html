@@ -11,6 +11,7 @@
 </button>
 <form [formGroup]="form" (ngSubmit)="submit()">
   <textarea
+    #commentsInput
     formControlName="comment"
     *ngIf="isAddMode"
     rows="2"
@@ -20,12 +21,12 @@
   <button
     type="submit"
     *ngIf="isAddMode"
-    class="button is-text is-small mr-2"
+    class="button is-text is-small mt-2 mr-2"
     (click)="submit()"
   >
     Submit
   </button>
-  <button *ngIf="isAddMode" class="button is-text is-small" (click)="toggle()">
+  <button *ngIf="isAddMode" class="button is-text is-small mt-2" (click)="toggle()">
     Cancel
   </button>
 </form>
