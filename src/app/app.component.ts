@@ -13,7 +13,15 @@ export class AppComponent {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0, 0);
+      if (evt.url.indexOf("#") === -1) {
+        window.scrollTo(0, 0);
+      } else {
+        setTimeout(() => {
+          const anchor = evt.url.split("#")[1];
+          const anchorEl = document.getElementById(anchor);
+          anchorEl.scrollIntoView();
+        }, 1);
+      }
     });
   }
 }

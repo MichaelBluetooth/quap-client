@@ -33,7 +33,7 @@
                 </p>
                 <p class="subtitle is-6">
                   <span>Asked {{ question.created | timeAgo }} by </span>
-                  <a href="#">{{ question.createdByUsername }}</a>
+                  <a [routerLink]="['users', question.createdByUserId]">{{ question.createdByUsername }}</a>
                 </p>
               </div>
             </div>

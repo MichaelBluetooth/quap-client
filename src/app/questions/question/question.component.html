@@ -2,7 +2,7 @@
   <h1 class="title">{{ question.title }}</h1>
   <h2 class="subtitle">
     <span>Asked {{ question.created | timeAgo }} by </span>
-    <a href="#">{{ question.createdByUsername }}</a>
+    <a [routerLink]="['/users', question.createdByUserId]">{{ question.createdByUsername }}</a>
   </h2>
   <hr class="has-background-dark" />
   <div class="columns mb-4">
@@ -24,17 +24,16 @@
       <div class="is-flex is-justify-content-space-between is-align-items-center">
         <div>
           <span>Asked {{ question.created | timeAgo }} by </span>
-          <a href="#">{{ question.createdByUsername }}</a>
+          <a [routerLink]="['/users', question.createdByUserId]">{{ question.createdByUsername }}</a>
         </div>
         <div>
-          <button class="button is-text mr-3">Share</button>
           <button class="button is-text mr-3">Edit</button>
           <button class="button is-text" (click)="deleteQuestion()">Delete</button>
         </div>
       </div>
       <hr class="mt-2" />
       <app-comments [comments]="question.comments" [createdByUsername]="question.createdByUsername"
-        (commentAdded)="questionComment($event)"></app-comments>
+        [createdByUserId]="question.createdByUserId" (commentAdded)="questionComment($event)"></app-comments>
     </div>
   </div>
 
@@ -42,7 +41,7 @@
   <hr class="has-background-dark" />
 
   <ng-container *ngFor="let answer of question.answers">
-    <div class="columns mb-4">
+    <div [id]="answer.id" class="columns mb-4">
       <div class="is-1 mr-5">
         <div class="is-flex is-flex-direction-column is-align-content-center">
           <app-vote-ticker (upvote)="upvoteAnswer(answer.id)" (downvote)="downvoteAnswer(answer.id)"
@@ -63,20 +62,21 @@
         <div class="is-flex is-justify-content-space-between is-align-items-center">
           <div>
             Answered by
-            <a [routerLink]="['users', answer.createdByUsername]">{{
+            <a [routerLink]="['/users', answer.createdByUserId]">{{
               answer.createdByUsername
             }}</a>
             {{ answer.created | timeAgo }}
           </div>
           <div>
-            <button class="button is-text mr-3">Share</button>
+            <button class="button is-text mr-3" (click)="shareAnswer()" [routerLink]="['/questions', question.id]"
+              [fragment]="answer.id">Share</button>
             <button class="button is-text mr-3">Edit</button>
             <button class="button is-text">Delete</button>
           </div>
         </div>
         <hr class="mt-2" />
         <app-comments [comments]="answer.comments" [createdByUsername]="answer.createdByUsername"
-          (commentAdded)="answerComment(answer.id, $event)"></app-comments>
+          [createdByUserId]="answer.createdByUserId" (commentAdded)="answerComment(answer.id, $event)"></app-comments>
       </div>
     </div>
     <hr class="has-background-dark" />

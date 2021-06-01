@@ -1,0 +1,40 @@
+<ng-container *ngIf="user$ | async as user">
+  <div class="container content mt-4">
+    <h1 class="title is-1">{{user.username}}</h1>
+    <h2 class="subtitle">Account created {{user.created | timeAgo}}</h2>
+
+    <div class="questions">
+      <h1 class="title is-3">Questions</h1>
+      <hr>
+      <ul>
+        <li *ngFor="let question of user.questions | slice:0:questionSliceCount">
+          <a [routerLink]="['/questions', question.id]">
+            {{question.title}}
+          </a> (created {{question.created | timeAgo}})
+        </li>
+      </ul>
+      <button *ngIf="isQuestionCollapsed && user.questions.length > 5" class="button is-text"
+        (click)="showAllQuestions(user.questions.length)">{{user.questions.length - 5}} more</button>
+      <button *ngIf="!isQuestionCollapsed" class="button is-text"
+        (click)="collapseQuestions()">Collapse</button>
+    </div>
+
+    <div class="answers mt-6">
+      <h1 class="title is-3">Answers</h1>
+      <hr>
+      <ul>
+        <li *ngFor="let answer of user.answers | slice:0:answerSliceCount">
+          <a [routerLink]="['/questions', answer.questionId]" [fragment]="answer.id">
+              {{answer.title}}
+            </a> (created {{answer.created | timeAgo}})
+        </li>
+      </ul>
+      <button *ngIf="isAnswerCollapsed && user.answers.length > 5" class="button is-text"
+        (click)="showAllAnswers(user.answers.length)">{{user.answers.length - 5}} more</button>
+      <button *ngIf="!isAnswerCollapsed" class="button is-text"
+        (click)="collapseAnswers()">Collapse</button>
+    </div>
+
+  </div>
+
+</ng-container>

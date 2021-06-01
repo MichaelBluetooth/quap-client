@@ -32,7 +32,7 @@ export class ConfirmService {
     componentRef.instance.cancel.subscribe(() => {
       this.appRef.detachView(componentRef.hostView);
       componentRef.destroy();
-      didConfirm.next(true);
+      didConfirm.next(false);
     });
 
     this.appRef.attachView(componentRef.hostView);

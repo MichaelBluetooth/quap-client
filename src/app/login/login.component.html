@@ -1,32 +1,27 @@
-<section class="hero has-background-light is-fullheight">
+<section class="hero has-background-primary is-fullheight">
   <div class="hero-body">
     <div class="container has-text-centered">
       <div class="column is-4 is-offset-4">
-        <h3 class="title has-text-black">Quap Login</h3>
+        <h3 class="title has-text-black">Quapp Login</h3>
+        <div class="is-flex is-justify-content-center">
+          <figure class="image is-96x96">
+            <img class="is-rounded" src="./assets/quapp-logo.png">
+          </figure>
+        </div>
         <hr class="login-hr has-background-dark" />
         <p class="subtitle has-text-black">Please login to proceed.</p>
         <div class="box">
           <form [formGroup]="form" (ngSubmit)="login()">
             <div class="field">
               <div class="control">
-                <input
-                  formControlName="username"
-                  class="input is-large"
-                  type="email"
-                  placeholder="Your Email"
-                  autofocus=""
-                />
+                <input formControlName="username" class="input is-large" type="email" placeholder="Your Email"
+                  autofocus="" />
               </div>
             </div>
 
             <div class="field">
               <div class="control">
-                <input
-                  formControlName="password"
-                  class="input is-large"
-                  type="password"
-                  placeholder="Your Password"
-                />
+                <input formControlName="password" class="input is-large" type="password" placeholder="Your Password" />
               </div>
             </div>
             <button class="button is-block is-info is-large is-fullwidth" type="submit">

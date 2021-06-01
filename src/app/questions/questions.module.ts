@@ -18,6 +18,8 @@ import { TagsInputComponent } from './tags-input/tags-input.component';
 import { PagerComponent } from './pager/pager.component';
 import { FillPipe } from './pipes/fill.pipe';
 import { PagesPipe } from './pipes/pages.pipe';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { PagesPipe } from './pipes/pages.pipe';
     PagerComponent,
     FillPipe,
     PagesPipe,
+    UserDetailsComponent,
+    AboutComponent
   ],
   imports: [
     MarkdownModule.forRoot(),

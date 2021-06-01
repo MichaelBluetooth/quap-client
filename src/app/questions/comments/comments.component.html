@@ -2,7 +2,7 @@
 <hr class="mt-1 mb-1" />
 <div class="is-size-7" *ngFor="let comment of comments">
   {{ comment.comment }} -
-  <a [routerLink]="['users', createdByUsername]">{{ createdByUsername }}</a>
+  <a [routerLink]="['/users', createdByUserId]">{{ createdByUsername }}</a>
   on <span class="has-text-grey">{{ comment.created | date: "short" }}</span>
   <hr class="mt-1 mb-1" />
 </div>

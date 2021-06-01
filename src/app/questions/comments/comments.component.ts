@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class CommentsComponent implements OnInit {
   @Input() comments: any[] = [];
   @Input() createdByUsername: string = '';
+  @Input() createdByUserId: string = ''
 
   @Output() commentAdded: EventEmitter<string> = new EventEmitter<string>();
 
