@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
           password: this.form.controls.password.value,
         })
         .subscribe((resp) => {
-          this.alert.createAlert('Succefully created new account, please log in.', 'primary');
+          this.alert.createAlert('Succefully created new account, please log in.', 'info');
           this.router.navigate(["login"]);
         });
     }

@@ -23,7 +23,7 @@ export class BaseUrlService implements HttpInterceptor {
 
     const req = request.clone({
       withCredentials: withCreds,
-      url: 'https://localhost:5001/api/' + request.url
+      url: 'api/' + request.url
     });
 
     return next.handle(req);
