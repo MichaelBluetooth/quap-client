@@ -36,6 +36,6 @@ export class AnswerComponent implements OnInit {
   }
 
   deleteAnswer(): void {
-    this.question.removevoteAnswer(this.answer.id);
+    this.question.deleteAnswer(this.answer.id);
   }
 }

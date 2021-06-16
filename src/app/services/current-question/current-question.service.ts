@@ -89,6 +89,10 @@ export class CurrentQuestion {
   }
 
   removevoteAnswer(answerId: string) {
+    this.voteAnswer(answerId, "none");
+  }
+
+  deleteAnswer(answerId: string) {
     this.confirmController.createAlert().subscribe((didConfirm) => {
       if (didConfirm) {
         this.http
