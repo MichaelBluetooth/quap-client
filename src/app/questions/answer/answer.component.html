@@ -1,0 +1,38 @@
+<div [id]="answer.id" class="columns mb-4">
+  <div class="is-1 mr-5">
+    <div class="is-flex is-flex-direction-column is-align-content-center">
+      <app-vote-ticker (upvote)="upvoteAnswer()" (downvote)="downvoteAnswer()" (removevote)="removevoteAnswer()"
+        [voteType]="answer.userVoteType" [votesCount]="answer.votesCount">
+      </app-vote-ticker>
+      <div class="mt-5">
+        <span (click)="accept()" class="icon" [ngClass]="{ 'has-text-success': answer.accepted }">
+          <i class="fa fa-check fa-3x is-clickable accept-mark" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="full-width ml-3">
+    <div>
+      <markdown [data]="answer.body"></markdown>
+    </div>
+    <hr class="mb-2" />
+    <div class="is-flex is-justify-content-space-between is-align-items-center">
+      <div>
+        Answered by
+        <a [routerLink]="['/users', answer.createdByUserId]">{{
+            answer.createdByUsername
+          }}</a>
+        {{ answer.created | timeAgo }}
+      </div>
+      <div>
+        <button class="button is-text mr-3" [routerLink]="['/questions', questionId]"
+          [fragment]="answer.id">Share</button>
+        <button class="button is-text mr-3">Edit</button>
+        <button class="button is-text" (click)="deleteAnswer()">Delete</button>
+      </div>
+    </div>
+    <hr class="mt-2" />
+    <app-comments [comments]="answer.comments" [createdByUsername]="answer.createdByUsername"
+      [createdByUserId]="answer.createdByUserId" (commentAdded)="answerComment($event)"></app-comments>
+  </div>
+</div>

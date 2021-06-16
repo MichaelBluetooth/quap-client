@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
-import { AnswerDetail } from "src/app/models/answer-detail";
 import { QuestionDetail } from "src/app/models/question-detail";
 import { CurrentQuestion } from "src/app/services/current-question/current-question.service";
 
@@ -20,10 +19,6 @@ export class QuestionComponent implements OnInit {
     this.currentQuestion.commentQuestion(c.comment);
   }
 
-  answerComment(answerId: string, c: any) {
-    this.currentQuestion.commentAnswer(answerId, c.comment);
-  }
-
   upvoteQuestion() {
     this.currentQuestion.upvoteQuestion();
   }
@@ -36,26 +31,10 @@ export class QuestionComponent implements OnInit {
     this.currentQuestion.removevoteQuestion();
   }
 
-  upvoteAnswer(anwerId: string) {
-    this.currentQuestion.upvoteAnswer(anwerId);
-  }
-
-  downvoteAnswer(anwerId: string) {
-    this.currentQuestion.downvoteAnswer(anwerId);
-  }
-
   answerQuestion(answer: string) {
     this.currentQuestion.answerQuestion(answer);
   }
-
-  removevoteAnswer(answerId: string) {
-    this.currentQuestion.removevoteAnswer(answerId);
-  }
-
-  accept(answer: AnswerDetail) {
-    this.currentQuestion.acceptAnswer(answer.id, !answer.accepted);
-  }
-
+  
   deleteQuestion() {
     this.currentQuestion.delete();
   }

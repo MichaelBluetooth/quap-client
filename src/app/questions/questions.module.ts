@@ -20,6 +20,7 @@ import { FillPipe } from './pipes/fill.pipe';
 import { PagesPipe } from './pipes/pages.pipe';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { AboutComponent } from './about/about.component';
+import { AnswerComponent } from './answer/answer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AboutComponent } from './about/about.component';
     FillPipe,
     PagesPipe,
     UserDetailsComponent,
-    AboutComponent
+    AboutComponent,
+    AnswerComponent
   ],
   imports: [
     MarkdownModule.forRoot(),

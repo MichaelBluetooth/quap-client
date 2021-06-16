@@ -89,7 +89,15 @@ export class CurrentQuestion {
   }
 
   removevoteAnswer(answerId: string) {
-    this.voteAnswer(answerId, "none");
+    this.confirmController.createAlert().subscribe((didConfirm) => {
+      if (didConfirm) {
+        this.http
+          .delete(`answers/${answerId}`)
+          .subscribe(() => {
+            this.router.navigate(["questions", this._question.value.id]);
+          });
+      }
+    });
   }
 
   vote(voteType: string) {
