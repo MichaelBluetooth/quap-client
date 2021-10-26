@@ -40,6 +40,13 @@ const routes: Routes = [
         },
       },
       {
+        path: "questions/:id/edit",
+        component: AskQuestionComponent,
+        resolve: {
+          question: QuestionResolverService,
+        },
+      },
+      {
         path: "ask",
         component: AskQuestionComponent,
       },
@@ -56,7 +63,11 @@ const routes: Routes = [
         resolve: {
           user: UserDetailsResolver,
         },
-      }
+      },
+      {
+        path: "tags",
+        loadChildren: () => import("../tags/tags.module").then((m) => m.TagsModule)
+      },
     ],
   },
 ];

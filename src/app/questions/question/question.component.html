@@ -27,7 +27,7 @@
           <a [routerLink]="['/users', question.createdByUserId]">{{ question.createdByUsername }}</a>
         </div>
         <div>
-          <button class="button is-text mr-3">Edit</button>
+          <button class="button is-text mr-3" [routerLink]="['edit']">Edit</button>
           <button class="button is-text" (click)="deleteQuestion()">Delete</button>
         </div>
       </div>

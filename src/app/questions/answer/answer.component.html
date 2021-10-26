@@ -13,7 +13,10 @@
   </div>
   <div class="full-width ml-3">
     <div>
-      <markdown [data]="answer.body"></markdown>
+      <markdown *ngIf="!isEdit" [data]="answer.body"></markdown>
+      <form [formGroup]="answerForm">
+        <textarea *ngIf="isEdit" formControlName="body" class="textarea" rows=15></textarea>
+      </form>
     </div>
     <hr class="mb-2" />
     <div class="is-flex is-justify-content-space-between is-align-items-center">
@@ -25,10 +28,16 @@
         {{ answer.created | timeAgo }}
       </div>
       <div>
-        <button class="button is-text mr-3" [routerLink]="['/questions', questionId]"
-          [fragment]="answer.id">Share</button>
-        <button class="button is-text mr-3">Edit</button>
-        <button class="button is-text" (click)="deleteAnswer()">Delete</button>
+        <ng-container *ngIf="!isEdit">
+          <button class="button is-text mr-3" [routerLink]="['/questions', questionId]"
+            [fragment]="answer.id">Share</button>
+          <button *ngIf="canEdit()" class="button is-text mr-3" (click)="edit()">Edit</button>
+          <button *ngIf="canDelete()" class="button is-text" (click)="deleteAnswer()">Delete</button>
+        </ng-container>
+        <ng-container *ngIf="isEdit">
+          <button class="button is-link mr-3" (click)="submitEdit()">Submit</button>
+          <button class="button" (click)="cancelEdit()">Cancel</button>
+        </ng-container>
       </div>
     </div>
     <hr class="mt-2" />

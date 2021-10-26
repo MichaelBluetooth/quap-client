@@ -3,24 +3,25 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { AlertService } from "../alert/alert.service";
+import { CurrentUserService } from "../current-user/current-user.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private _isAuthenticated = new BehaviorSubject<boolean>(false);
-  private _userDetails = null;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private alertController: AlertService
+    private alertController: AlertService,
+    private currentUser: CurrentUserService
   ) {}
 
   login(username: string, password: string) {
     this.http.post("users/login", { username, password }).subscribe(
       (resp) => {
-        this._userDetails = resp;
+        this.currentUser.setUserDetails(resp);
         this._isAuthenticated.next(true);
         this.router.navigate([""]);
       },
@@ -33,12 +34,12 @@ export class AuthService {
   logout(doDeleteSession: boolean = true) {
     if (this._isAuthenticated.value && doDeleteSession) {
       this.http.delete("users/logout").subscribe((_) => {
-        this._userDetails = null;
+        this.currentUser.clearUserDetails();
         this._isAuthenticated.next(false);
         this.router.navigate(["login"]);
       });
     } else {
-      this._userDetails = null;
+      this.currentUser.clearUserDetails();
       this._isAuthenticated.next(false);
       this.router.navigate(["login"]);
     }
@@ -53,6 +54,6 @@ export class AuthService {
   }
 
   get user() {
-    return this._userDetails;
+    return this.currentUser.getUser();
   }
 }

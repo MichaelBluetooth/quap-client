@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: "app-confirm",
@@ -6,6 +6,8 @@ import { Component, EventEmitter, Output } from "@angular/core";
   styleUrls: ["./confirm.component.css"],
 })
 export class ConfirmComponent {
+  @Input() title: string;
+  @Input() body: string;
   @Output() confirm = new EventEmitter();
   @Output() cancel = new EventEmitter();
 }

@@ -26,7 +26,7 @@
         <li *ngFor="let answer of user.answers | slice:0:answerSliceCount">
           <a [routerLink]="['/questions', answer.questionId]" [fragment]="answer.id">
               {{answer.title}}
-            </a> (created {{answer.created | timeAgo}})
+            </a> (answered {{answer.created | timeAgo}})
         </li>
       </ul>
       <button *ngIf="isAnswerCollapsed && user.answers.length > 5" class="button is-text"

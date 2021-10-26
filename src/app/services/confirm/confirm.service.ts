@@ -6,7 +6,7 @@ import {
   Injector,
 } from "@angular/core";
 import { Subject } from "rxjs";
-import { ConfirmComponent } from "src/app/questions/confirm/confirm.component";
+import { ConfirmComponent } from "src/app/core/components/confirm/confirm.component";
 
 @Injectable({
   providedIn: "root",
@@ -18,12 +18,14 @@ export class ConfirmService {
     private injector: Injector
   ) {}
 
-  createAlert() {
+  createAlert(title: string, message: string) {
     const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(ConfirmComponent)
       .create(this.injector);
 
     const didConfirm: Subject<boolean> = new Subject<boolean>();
+    componentRef.instance.title = title;
+    componentRef.instance.body = message;
     componentRef.instance.confirm.subscribe(() => {
       this.appRef.detachView(componentRef.hostView);
       componentRef.destroy();

@@ -1,0 +1,39 @@
+<div class="box full-height">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong>{{ tag.name }}</strong>
+          <br />
+          {{ tag.description | truncate: 150 }}
+        </p>
+      </div>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a
+            class="level-item"
+            [routerLink]="['/']"
+            [queryParams]="{ tag: tag.name }"
+          >
+            <span class="icon is-small">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </span>
+          </a>
+          <a class="level-item" [routerLink]="[tag.id, 'edit']">
+            <span class="icon is-small">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+          </a>
+          <a class="level-item" (click)="delete()">
+            <span class="icon is-small">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+        <div class="level-left">
+          <span>Created {{ tag.created | timeAgo }}</span>
+        </div>
+      </nav>
+    </div>
+  </article>
+</div>

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { QuestionDetail } from "src/app/models/question-detail";
 import { ConfirmService } from "../confirm/confirm.service";
 
@@ -57,15 +57,20 @@ export class CurrentQuestion {
   }
 
   delete() {
-    this.confirmController.createAlert().subscribe((didConfirm) => {
-      if (didConfirm) {
-        this.http
-          .delete(`questions/${this._question.value.id}`)
-          .subscribe(() => {
-            this.router.navigate(["questions"]);
-          });
-      }
-    });
+    this.confirmController
+      .createAlert(
+        "Confirm Delete",
+        "Are you sure you want to delete this post? This action cannot be undone."
+      )
+      .subscribe((didConfirm) => {
+        if (didConfirm) {
+          this.http
+            .delete(`questions/${this._question.value.id}`)
+            .subscribe(() => {
+              this.router.navigate(["questions"]);
+            });
+        }
+      });
   }
 
   upvoteQuestion() {
@@ -93,15 +98,18 @@ export class CurrentQuestion {
   }
 
   deleteAnswer(answerId: string) {
-    this.confirmController.createAlert().subscribe((didConfirm) => {
-      if (didConfirm) {
-        this.http
-          .delete(`answers/${answerId}`)
-          .subscribe(() => {
+    this.confirmController
+      .createAlert(
+        "Confirm Delete",
+        "Are you sure you want to delete this answer? This action cannot be undone."
+      )
+      .subscribe((didConfirm) => {
+        if (didConfirm) {
+          this.http.delete(`answers/${answerId}`).subscribe(() => {
             this.router.navigate(["questions", this._question.value.id]);
           });
-      }
-    });
+        }
+      });
   }
 
   vote(voteType: string) {
@@ -150,6 +158,20 @@ export class CurrentQuestion {
         const idx = q.answers.findIndex((a) => a.id === resp.id);
         q.answers[idx] = resp;
         this.setQuestion(q);
+      });
+  }
+
+  updateAnswer(answerId: string, body: string) {
+    this.http
+      .put(`answers/${answerId}`, {
+        body: body,
+        questionId: this._question.value.id,
+      })
+      .subscribe((resp: any) => {
+        const currentQuestion = this._question.value;
+        const idx = currentQuestion.answers.findIndex((a) => a.id === resp.id);
+        currentQuestion.answers[idx] = resp;
+        this.setQuestion(currentQuestion);
       });
   }
 }

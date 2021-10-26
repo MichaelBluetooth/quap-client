@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AnswerDetail } from "src/app/models/answer-detail";
+import { AuthService } from "src/app/services/auth/auth.service";
 import { CurrentQuestion } from "src/app/services/current-question/current-question.service";
+import { PermissionsService } from "src/app/services/permissions/permissions.service";
 
 @Component({
   selector: "app-answer",
@@ -11,9 +14,27 @@ export class AnswerComponent implements OnInit {
   @Input() answer: AnswerDetail;
   @Input() questionId: string;
 
-  constructor(private question: CurrentQuestion) {}
+  isEdit = false;
+  answerForm: FormGroup;
 
-  ngOnInit(): void {}
+  constructor(
+    private question: CurrentQuestion,
+    private perms: PermissionsService
+  ) {}
+
+  ngOnInit(): void {
+    this.answerForm = new FormGroup({
+      body: new FormControl(this.answer.body, Validators.required),
+    });
+  }
+
+  canEdit() {
+    return this.perms.canEditAnswer(this.answer);
+  }
+
+  canDelete() {
+    return this.perms.canDeleteAnswer(this.answer);
+  }
 
   answerComment(c: any): void {
     this.question.commentAnswer(this.answer.id, c.comment);
@@ -37,5 +58,22 @@ export class AnswerComponent implements OnInit {
 
   deleteAnswer(): void {
     this.question.deleteAnswer(this.answer.id);
+  }
+
+  edit(): void {
+    this.isEdit = true;
+  }
+
+  cancelEdit(): void {
+    this.isEdit = false;
+  }
+
+  submitEdit(): void {
+    if (this.answerForm.valid) {
+      this.question.updateAnswer(
+        this.answer.id,
+        this.answerForm.controls.body.value
+      );
+    }
   }
 }

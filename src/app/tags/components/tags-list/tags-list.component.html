@@ -1,0 +1,19 @@
+<div class="mt-4 mr-2 ml-2">
+  <div class="is-flex is-justify-content-space-between">
+    <h1 class="title">Tags</h1>
+    <a class="button" [routerLink]="['add']">Add Tag</a>
+  </div>
+  <div>
+    <h2 class="subtitle">Tags are keywords that help categorize questions.</h2>
+  </div>
+</div>
+<div class="mt-4">
+  <div class="columns is-multiline is-mobile">
+    <div
+      class="column is-one-third-desktop is-full-mobile"
+      *ngFor="let tag of tags$ | async"
+    >
+      <app-tag-details [tag]="tag"></app-tag-details>
+    </div>
+  </div>
+</div>

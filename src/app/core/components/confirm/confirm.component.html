@@ -2,11 +2,11 @@
  <div class="wrapper is-flex is-justify-content-center">
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Confirm Delete</p>
+      <p class="modal-card-title">{{title}}</p>
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
-      Are you sure you want to delete this post? This action cannot be undone.
+      {{body}}
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" (click)="confirm.next()">Yes</button>

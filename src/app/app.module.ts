@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
@@ -9,19 +9,18 @@ import { MarkdownModule } from "ngx-markdown";
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthInterceptorService } from "./services/auth-interceptor/auth-interceptor.service";
 import { BaseUrlService } from "./services/base-url/base-url.service";
-import { RegisterComponent } from './register/register.component';
-import { AlertComponent } from './alert/alert.component';
-import { ConfirmComponent } from "./questions/confirm/confirm.component";
+import { RegisterComponent } from "./register/register.component";
+import { CurrentUserService } from "./services/current-user/current-user.service";
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, AlertComponent, ConfirmComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MarkdownModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     {
@@ -34,8 +33,18 @@ import { ConfirmComponent } from "./questions/confirm/confirm.component";
       useClass: BaseUrlService,
       multi: true,
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (user: CurrentUserService) => {
+        return () => {
+          user.loadUserDetails();
+          return Promise.resolve();
+        };
+      },
+      deps: [CurrentUserService],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {  
-}
+export class AppModule {}

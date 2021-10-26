@@ -34,7 +34,7 @@ export class QuestionComponent implements OnInit {
   answerQuestion(answer: string) {
     this.currentQuestion.answerQuestion(answer);
   }
-  
+
   deleteQuestion() {
     this.currentQuestion.delete();
   }
